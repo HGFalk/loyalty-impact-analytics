@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw tables loaded by scripts/load_raw.py and scripts/generate_loyalty.py. All columns are STRING.
+    database: loyalty-impact-analytics
+    schema: raw
+    tables:
+      - name: transactions
+        description: Kaggle card transactions, 2010-01 to 2019-10.
+      - name: extra_transactions
+        description: Synthetic planted effect, about 5% extra purchases for Points+ members after joining.
+      - name: users
+        description: Kaggle customers.
+      - name: cards
+        description: Kaggle cards. Card number and CVV were dropped before loading.
+      - name: mcc_codes
+        description: Merchant category codes and descriptions.
+      - name: loyalty_members
+        description: Synthetic Points+ members, with enrolment time and channel.
+      - name: experiment_assignments
+        description: Synthetic invitation experiment, random 50/50 split on 2018-09-01.

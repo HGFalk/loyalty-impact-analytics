@@ -1,0 +1,6 @@
+dbt-core==1.12.6
+dbt-bigquery==1.12.1
+google-cloud-bigquery==3.47.0
+pandas==3.1.0
+pyarrow==26.0.1
+db-dtypes==1.9.0

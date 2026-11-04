@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: fct_customer_month
+    description: One row per customer per month (2017-01 to 2019-10), including zero-purchase months. Carries membership phase and experiment variant.
+    columns:
+      - name: customer_month_id
+        description: Customer id and month, for example 825-2018-03.
+        data_tests:
+          - unique
+          - not_null
+      - name: membership_phase
+        description: non_member, before_joining, joining_month or after_joining.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['non_member', 'before_joining', 'joining_month', 'after_joining']
+      - name: experiment_variant
+        description: invitation or control for experiment customers, empty for everyone else.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['invitation', 'control']

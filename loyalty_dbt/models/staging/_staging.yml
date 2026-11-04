@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: One row per card transaction, typed and renamed. Includes planted Points+ effect rows (is_planted = true).
+    columns:
+      - name: transaction_id
+        description: Unique transaction id. Planted rows are prefixed with S.
+        data_tests:
+          - unique
+          - not_null
+      - name: transaction_at
+        data_tests:
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+      - name: amount
+        description: Transaction amount. Negative values are refunds.
+        data_tests:
+          - not_null
+
+  - name: stg_loyalty_members
+    description: One row per Points+ member with enrolment time and channel.
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+      - name: enrolment_channel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['organic', 'invitation']
+
+  - name: stg_experiment_assignments
+    description: One row per customer randomly assigned in the invitation experiment on 2018-09-01.
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+      - name: variant
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['invitation', 'control']

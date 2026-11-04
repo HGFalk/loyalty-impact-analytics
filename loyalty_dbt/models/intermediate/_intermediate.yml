@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: int_purchases
+    description: Completed purchases (amount > 0, no error) from 2017-01-01 to 2019-10-31. Clustered by customer_id.
+    columns:
+      - name: transaction_id
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null

@@ -3,6 +3,7 @@
 The app reads this file instead of querying BigQuery, so it needs no
 credentials and keeps working after the sandbox tables expire.
 """
+import pandas as pd
 from pathlib import Path
 
 from google.cloud import bigquery
@@ -23,6 +24,8 @@ def main():
 
     # BigQuery NUMERIC arrives as Python Decimal; float is simpler for the app.
     df["spend"] = df["spend"].astype(float)
+        # BigQuery DATE arrives as a special 'dbdate' type; store a standard date instead.
+    df["month"] = pd.to_datetime(df["month"].astype(str))
 
     out_path = OUT_DIR / "fct_customer_month.parquet"
     df.to_parquet(out_path, index=False)
@@ -32,4 +35,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-    
